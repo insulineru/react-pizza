@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
-function SortSelect() {
+function SortSelect({ items }) {
   return (
     <div className="sort">
       <div className="sort__label">
@@ -21,13 +22,25 @@ function SortSelect() {
       </div>
       <div className="sort__popup">
         <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
+          {items &&
+            items.map((obj, index) => (
+              <li
+                key={obj.type}>
+                {obj.name}
+              </li>
+            ))}
         </ul>
       </div>
     </div>
   );
+}
+
+SortSelect.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+SortSelect.defaultProps = {
+  items: [],
 }
 
 export default SortSelect;
