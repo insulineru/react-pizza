@@ -6,16 +6,19 @@ const categories = ['Мясные', 'Вегетарианская', 'Гриль'
 const sortByItems = [
   { name: 'популярности', type: 'popular', order: 'desc' },
   { name: 'цене', type: 'price', order: 'desc' },
-  { name: 'алфавит', type: 'name', order: 'asc' },
+  { name: 'алфавиту', type: 'name', order: 'asc' },
 ];
 
 function Home() {
+  const [category, setCategory] = React.useState(null);
+  const [sortBy, setSortBy] = React.useState(sortByItems[0]);
+
   return (
     <div className="content">
       <div className="container">
         <div className="content__top">
-          <Categories items={categories} />
-          <SortSelect items={sortByItems} />
+          <Categories items={categories} onClickCategory={setCategory} activeCategory={category}/>
+          <SortSelect items={sortByItems} onClickSort={setSortBy} activeSort={sortBy}/>
         </div>
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items">
