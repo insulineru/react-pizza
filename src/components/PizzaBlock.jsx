@@ -1,10 +1,15 @@
 import React from 'react';
-
+import classNames from 'classnames';
 import Button from './Button';
 
 const types = ['тонкое', 'традиционное'];
+const sizes = [26, 30, 40];
+
 
 function PizzaBlock({ item }) {
+  const [activeType, setActiveType] = React.useState(types[0]);
+  const [activeSize, setActiveSize] = React.useState(0);
+
   return (
     <div className="pizza-block">
       <img
@@ -15,18 +20,29 @@ function PizzaBlock({ item }) {
       <h4 className="pizza-block__title">{item.name}</h4>
       <div className="pizza-block__selector">
         <ul>
-          {item.types &&
-            item.types.map(type => (
-              <li key={type}>{types[type]}</li>
+          {types.map((type, index) => (
+              <li
+                key={type}
+                className={classNames({
+                  'disabled': !item.types.includes(index),
+                  'active': activeType === type,
+                })}
+                onClick={() => setActiveType(type)}
+              >{type}</li>
             ))
           }
         </ul>
         <ul>
-          {item.sizes &&
-            item.sizes.map(size => (
-              <li key={size}>{size} см.</li>
-            ))
-          }
+          {sizes.map(size => (
+            <li
+              key={size}
+              className={classNames({
+                  'disabled': !item.sizes.includes(size),
+                  'active': activeSize === size,
+              })}
+              onClick={() => setActiveSize(size)}
+            >{size} см.</li>
+          ))}
         </ul>
       </div>
       <div className="pizza-block__bottom">

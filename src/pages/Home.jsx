@@ -25,7 +25,7 @@ function Home() {
         setPizzas(data);
         setLoading(false);
       });
-  }, [sortBy, category]);
+  }, []);
 
   return (
     <div className="content">
