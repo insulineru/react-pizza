@@ -1,7 +1,8 @@
 @import 'variables';
 
 .button {
-  display: inline-block;
+  display: flex;
+  align-items: center;
   background-color: $orange;
   border-radius: 30px;
   padding: 10px 20px;
@@ -105,18 +106,11 @@
       font-size: 16px;
     }
 
-    &:hover {
-      i {
-        background-color: #fff;
-        color: $orange;
-      }
-    }
-
     i {
       display: inline-block;
       border-radius: 30px;
-      background-color: $orange;
-      color: #fff;
+      background-color: #fff;
+      color: $orange;
       font-weight: 600;
       width: 22px;
       height: 22px;
