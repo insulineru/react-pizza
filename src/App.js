@@ -11,11 +11,23 @@ function App() {
     price: 0,
   });
 
+  const addToCart = (obj) => {
+    setCartItems({
+      items: [...cartItems.items, obj],
+      count: cartItems.count + 1,
+      price: cartItems.price + obj.price,
+    });
+  };
+
+  // const removeFromCart = (obj) => {
+
+  // };
+
   return (
     <div className="wrapper">
       <Header cartCount={cartItems.count} cartPrice={cartItems.price} />
       <div className="content">
-      <Route path="/" render={() => <Home setCartItems={setCartItems} />} exact />
+      <Route path="/" render={() => <Home setCartItems={addToCart} />} exact />
       <Route path="/cart" render={() => <Cart items={cartItems} onRemoveItem={setCartItems} />} exact />
       </div>
     </div>
