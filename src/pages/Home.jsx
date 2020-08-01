@@ -42,7 +42,7 @@ function Home({ setCartItems }) {
               return (<LoadingPizzaBlock key={ index }/>)
             }) :
             pizzas.map(item => {
-              return (<PizzaBlock item={item} key={item.id} addToCart={setCartItems} />)
+              return (<PizzaBlock {...item} key={item.id} addToCart={setCartItems} />)
             })
           }
         </div>

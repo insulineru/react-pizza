@@ -1,30 +1,49 @@
 import React from 'react';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+
 import Button from './Button';
 
-const types = ['тонкое', 'традиционное'];
-const sizes = [26, 30, 40];
+const allTypes = ['тонкое', 'традиционное'];
+const allSizes = [26, 30, 40];
 
 
-function PizzaBlock({ item }) {
-  const [activeType, setActiveType] = React.useState(types[0]);
-  const [activeSize, setActiveSize] = React.useState(0);
+function PizzaBlock({ imageUrl, id, name, types, sizes, price, category, addToCart }) {
+  const [activeType, setActiveType] = React.useState(allTypes[0]);
+  const [activeSize, setActiveSize] = React.useState(allSizes[0]);
+
+  const onClickHandler = () => {
+    const obj = {
+      id,
+      imageUrl,
+      name,
+      price,
+      size: activeSize,
+      type: activeType,
+    };
+    addToCart(obj);
+  };
+
+  React.useEffect(() => {
+    setActiveSize(sizes[0]);
+    setActiveType(allTypes[types[0]]);
+  }, [sizes, types]);
 
   return (
     <div className="pizza-block">
       <img
         className="pizza-block__image"
-        src={item.imageUrl}
+        src={imageUrl}
         alt="Pizza"
       />
-      <h4 className="pizza-block__title">{item.name}</h4>
+      <h4 className="pizza-block__title">{name}</h4>
       <div className="pizza-block__selector">
         <ul>
-          {types.map((type, index) => (
+          {allTypes.map((type, index) => (
               <li
                 key={type}
                 className={classNames({
-                  'disabled': !item.types.includes(index),
+                  'disabled': !types.includes(index),
                   'active': activeType === type,
                 })}
                 onClick={() => setActiveType(type)}
@@ -33,11 +52,11 @@ function PizzaBlock({ item }) {
           }
         </ul>
         <ul>
-          {sizes.map(size => (
+          {allSizes.map(size => (
             <li
               key={size}
               className={classNames({
-                  'disabled': !item.sizes.includes(size),
+                  'disabled': !sizes.includes(size),
                   'active': activeSize === size,
               })}
               onClick={() => setActiveSize(size)}
@@ -46,8 +65,8 @@ function PizzaBlock({ item }) {
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от {item.price} ₽</div>
-        <Button className="button--add">
+        <div className="pizza-block__price">от {price} ₽</div>
+        <Button className="button--add" onClick={onClickHandler}>
           <svg
             width="12"
             height="12"
@@ -68,4 +87,13 @@ function PizzaBlock({ item }) {
   )
 }
 
+PizzaBlock.propTypes = {
+  imageUrl: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  price: PropTypes.number.isRequired,
+  category: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  types: PropTypes.arrayOf(PropTypes.number).isRequired,
+  sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+}
 export default PizzaBlock;
