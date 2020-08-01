@@ -15,8 +15,8 @@ function App() {
     <div className="wrapper">
       <Header cartCount={cartItems.count} cartPrice={cartItems.price} />
       <div className="content">
-      <Route path="/" component={() => <Home setCartItems={setCartItems} />} exact />
-      <Route path="/cart" component={() => <Cart items={cartItems} onRemoveItem={setCartItems} />} exact />
+      <Route path="/" render={() => <Home setCartItems={setCartItems} />} exact />
+      <Route path="/cart" render={() => <Cart items={cartItems} onRemoveItem={setCartItems} />} exact />
       </div>
     </div>
   );
