@@ -28,7 +28,7 @@ function Categories({ items, activeCategory, onClickCategory }) {
 
 Categories.propTypes = {
   items: PropTypes.arrayOf(PropTypes.string).isRequired,
-  activeCategory: PropTypes.oneOf([PropTypes.number, null]),
+  activeCategory: PropTypes.oneOf([PropTypes.number, PropTypes.null]),
   onClickCategory: PropTypes.func.isRequired,
 };
 

@@ -20,19 +20,30 @@ function App() {
   };
 
   const removeFromCart = (obj, index) => {
+    const newItems = [...cartItems.items]
+    newItems.splice(index, 1);
+
     setCartItems({
-      items: [...cartItems.splice(index, 1)],
+      items: newItems,
       count: cartItems.count - 1,
       price: cartItems.price - obj.price,
     });
   };
+
+  const clearCart = () => {
+    setCartItems({
+      items: [],
+      count: 0,
+      price: 0,
+    });
+  }
 
   return (
     <div className="wrapper">
       <Header cartCount={cartItems.count} cartPrice={cartItems.price} />
       <div className="content">
       <Route path="/" render={() => <Home setCartItems={addToCart} />} exact />
-      <Route path="/cart" render={() => <Cart items={cartItems} onRemoveItem={setCartItems} />} exact />
+      <Route path="/cart" render={() => <Cart cart={cartItems} onRemoveItem={removeFromCart} clearCart={clearCart} />} exact />
       </div>
     </div>
   );
