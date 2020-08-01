@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Button from './Button';
 import headerLogo from '../assets/img/pizza-logo.svg';
 
-function Header() {
+function Header({ cartCount, cartPrice}) {
   return (
     <div className="header">
       <div className="container">
@@ -20,7 +21,7 @@ function Header() {
         <div className="header__cart">
           <Link to="/cart">
             <Button className="button button--cart">
-              <span>520 ₽</span>
+              <span>{cartPrice} ₽</span>
               <div className="button__delimiter"></div>
               <svg
                 width="18"
@@ -51,13 +52,18 @@ function Header() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span>3</span>
+              <span>{cartCount}</span>
             </Button>
           </Link>
         </div>
       </div>
     </div>
   );
-}
+};
+
+Header.propTypes = {
+  cartCount: PropTypes.number.isRequired,
+  cartPrice: PropTypes.number.isRequired,
+};
 
 export default Header;

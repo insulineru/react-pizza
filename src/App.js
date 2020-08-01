@@ -5,12 +5,18 @@ import { Header } from './components';
 import { Home, Cart } from './pages';
 
 function App() {
+  const [cartItems, setCartItems ] = React.useState({
+    items: [],
+    count: 0,
+    price: 0,
+  });
+
   return (
     <div className="wrapper">
-      <Header />
+      <Header cartCount={cartItems.count} cartPrice={cartItems.price} />
       <div className="content">
-      <Route path="/" component={Home} exact />
-      <Route path="/cart" component={Cart} exact />
+      <Route path="/" component={() => <Home setCartItems={setCartItems} />} exact />
+      <Route path="/cart" component={() => <Cart items={cartItems} onRemoveItem={setCartItems} />} exact />
       </div>
     </div>
   );
