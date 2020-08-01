@@ -19,9 +19,13 @@ function App() {
     });
   };
 
-  // const removeFromCart = (obj) => {
-
-  // };
+  const removeFromCart = (obj, index) => {
+    setCartItems({
+      items: [...cartItems.splice(index, 1)],
+      count: cartItems.count - 1,
+      price: cartItems.price - obj.price,
+    });
+  };
 
   return (
     <div className="wrapper">
