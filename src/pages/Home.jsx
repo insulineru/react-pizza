@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import { PizzaBlock, Categories, SortSelect, LoadingPizzaBlock } from '../components';
 
@@ -10,7 +11,7 @@ const sortByItems = [
   { name: 'алфавиту', type: 'name', order: 'asc' },
 ];
 
-function Home() {
+function Home({ setCartItems }) {
   const [category, setCategory] = React.useState(null);
   const [sortBy, setSortBy] = React.useState(sortByItems[0]);
 
@@ -20,12 +21,12 @@ function Home() {
   React.useEffect(() => {
     setLoading(true)
     axios
-      .get('http://localhost:1337/pizzas', {})
+      .get(`http://localhost:1337/pizzas?${category !== null ? `category=${category}` : ''}&_sort=${sortBy.type}&_order=${sortBy.order}`)
       .then(({ data }) => {
         setPizzas(data);
         setLoading(false);
       });
-  }, []);
+  }, [category, sortBy.order, sortBy.type]);
 
   return (
     <div className="content">
@@ -41,13 +42,17 @@ function Home() {
               return (<LoadingPizzaBlock key={ index }/>)
             }) :
             pizzas.map(item => {
-              return (<PizzaBlock item={item} key={item.id}/>)
+              return (<PizzaBlock item={item} key={item.id} addToCart={setCartItems} />)
             })
           }
         </div>
       </div>
     </div>
   )
+}
+
+Home.propTypes = {
+  setCartItems: PropTypes.func.isRequired,
 }
 
 export default Home;

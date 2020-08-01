@@ -14,8 +14,8 @@ function Categories({ items, activeCategory, onClickCategory }) {
         {items &&
           items.map((name, index) => (
             <li
-              className={activeCategory === name ? 'active' : ''}
-              onClick={() => onClickCategory(name)}
+              className={activeCategory === index ? 'active' : ''}
+              onClick={() => onClickCategory(index)}
               key={index}
             >
               {name}
@@ -28,7 +28,7 @@ function Categories({ items, activeCategory, onClickCategory }) {
 
 Categories.propTypes = {
   items: PropTypes.arrayOf(PropTypes.string).isRequired,
-  activeCategory: PropTypes.oneOf([PropTypes.string, null]),
+  activeCategory: PropTypes.oneOf([PropTypes.number, null]),
   onClickCategory: PropTypes.func.isRequired,
 };
 
