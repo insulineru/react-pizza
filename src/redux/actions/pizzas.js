@@ -8,8 +8,14 @@ export const setLoaded = (payload) => ({
 export const fetchPizzas = (sortBy, category) => (dispatch) => {
   dispatch(setLoaded(false))
 
-  db.collection('pizzas')
-    .get()
+  let items = db.collection('pizzas')
+
+  if (category) items = items.where('category', '==', category)
+  if (sortBy) {
+    items = items.orderBy(sortBy.type, sortBy.order)
+  }
+
+  items.get()
     .then(querySnapshot => {
       const pizzas = querySnapshot.docs.map(doc => ({
         id: doc.id,

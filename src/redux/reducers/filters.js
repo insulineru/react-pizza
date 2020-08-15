@@ -2,7 +2,7 @@ const initialState = {
   category: null,
   sortBy: {
     name: 'популярности',
-    type: 'popular',
+    type: 'rating',
     order: 'desc',
   },
 };

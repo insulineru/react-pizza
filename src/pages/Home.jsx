@@ -8,7 +8,7 @@ import { fetchPizzas } from '../redux/actions/pizzas';
 
 const categories = ['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 const sortByItems = [
-  { name: 'популярности', type: 'popular', order: 'desc' },
+  { name: 'популярности', type: 'rating', order: 'desc' },
   { name: 'цене', type: 'price', order: 'desc' },
   { name: 'алфавиту', type: 'name', order: 'asc' },
 ];
