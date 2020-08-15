@@ -8,7 +8,7 @@ const allTypes = ['тонкое', 'традиционное'];
 const allSizes = [26, 30, 40];
 
 
-function PizzaBlock({ imageUrl, id, name, types, sizes, price, category, addToCart }) {
+function PizzaBlock({ imageUrl, id, name, types, sizes, price, addToCart }) {
   const [activeType, setActiveType] = React.useState(allTypes[0]);
   const [activeSize, setActiveSize] = React.useState(allSizes[0]);
 
@@ -91,7 +91,6 @@ PizzaBlock.propTypes = {
   imageUrl: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   price: PropTypes.number.isRequired,
-  category: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   types: PropTypes.arrayOf(PropTypes.number).isRequired,
   sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
