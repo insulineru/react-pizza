@@ -1,5 +1,6 @@
 import React from 'react';
-import axios from 'axios';
+import { db } from '../firebase';
+
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -24,13 +25,17 @@ function Home({ setCartItems }) {
 
   React.useEffect(() => {
     setLoading(true)
-    axios
-      .get(`http://localhost:1337/pizzas?${category !== null ? `category=${category}` : ''}&_sort=${sortBy.type}&_order=${sortBy.order}`)
-      .then(({ data }) => {
-        setPizzas(data);
-        setLoading(false);
-      });
-  }, [category, sortBy.order, sortBy.type]);
+    db.collection('pizzas')
+      .get()
+      .then(querySnapshot => {
+        const pizzas = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }))
+        setPizzas(pizzas)
+        setLoading(false)
+      })
+  }, []);
 
   return (
     <div className="content">

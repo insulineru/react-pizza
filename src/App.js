@@ -5,7 +5,8 @@ import { Header } from './components';
 import { Home, Cart } from './pages';
 
 function App() {
-  const [cartItems, setCartItems ] = React.useState({
+
+  const [cartItems, setCartItems] = React.useState({
     items: [],
     count: 0,
     price: 0,
@@ -40,13 +41,14 @@ function App() {
 
   return (
     <div className="wrapper">
-      <Header cartCount={cartItems.count} cartPrice={cartItems.price} />
+      <Header cartCount={cartItems.count} cartPrice={cartItems.price}/>
       <div className="content">
-      <Route path="/" render={() => <Home setCartItems={addToCart} />} exact />
-      <Route path="/cart" render={() => <Cart cart={cartItems} onRemoveItem={removeFromCart} clearCart={clearCart} />} exact />
+        <Route path="/" render={() => <Home setCartItems={addToCart}/>} exact/>
+        <Route path="/cart" render={() => <Cart cart={cartItems} onRemoveItem={removeFromCart} clearCart={clearCart}/>}
+               exact/>
       </div>
     </div>
   );
-}
+};
 
 export default App;
