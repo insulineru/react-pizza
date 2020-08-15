@@ -1,31 +1,30 @@
-import { db } from '../../firebase';
+import { db } from "../../firebase";
 
 export const setLoaded = (payload) => ({
-  type: 'SET_LOADED',
+  type: "SET_LOADED",
   payload,
 });
 
 export const fetchPizzas = (sortBy, category) => (dispatch) => {
-  dispatch(setLoaded(false))
+  dispatch(setLoaded(false));
 
-  let items = db.collection('pizzas')
+  let items = db.collection("pizzas");
 
-  if (category) items = items.where('category', '==', category)
+  if (category) items = items.where("category", "==", category);
   if (sortBy) {
-    items = items.orderBy(sortBy.type, sortBy.order)
+    items = items.orderBy(sortBy.type, sortBy.order);
   }
 
-  items.get()
-    .then(querySnapshot => {
-      const pizzas = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }))
-      dispatch(setPizzas(pizzas))
-    })
-}
+  items.get().then((querySnapshot) => {
+    const pizzas = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    dispatch(setPizzas(pizzas));
+  });
+};
 
 export const setPizzas = (items) => ({
-  type: 'SET_PIZZAS',
+  type: "SET_PIZZAS",
   payload: items,
 });

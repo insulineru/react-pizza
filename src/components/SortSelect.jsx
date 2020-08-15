@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 function SortSelect({ items, activeSort, onClickSort }) {
   const [visiblePopup, setVisiblePopup] = React.useState(false);
@@ -22,14 +22,14 @@ function SortSelect({ items, activeSort, onClickSort }) {
   };
 
   React.useEffect(() => {
-    document.body.addEventListener('click', handleOutsideClick);
+    document.body.addEventListener("click", handleOutsideClick);
   }, []);
 
   return (
     <div ref={sortElement} className="sort">
       <div className="sort__label">
         <svg
-          className={visiblePopup ? 'rotated' : ''}
+          className={visiblePopup ? "rotated" : ""}
           width="10"
           height="6"
           viewBox="0 0 10 6"
@@ -44,7 +44,7 @@ function SortSelect({ items, activeSort, onClickSort }) {
         <b>Сортировка по:</b>
         <span onClick={toggleVisiblePopup}>{activeSort.name}</span>
       </div>
-      {visiblePopup &&
+      {visiblePopup && (
         <div className="sort__popup">
           <ul>
             {items &&
@@ -59,7 +59,7 @@ function SortSelect({ items, activeSort, onClickSort }) {
               ))}
           </ul>
         </div>
-      }
+      )}
     </div>
   );
 }
@@ -72,6 +72,6 @@ SortSelect.propTypes = {
 
 SortSelect.defaultProps = {
   items: [],
-}
+};
 
 export default SortSelect;

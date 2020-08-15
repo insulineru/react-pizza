@@ -1,14 +1,13 @@
-import React from 'react';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import React from "react";
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 
-import Button from './Button';
-import { addToCart } from '../redux/actions/cart';
+import Button from "./Button";
+import { addToCart } from "../redux/actions/cart";
 
-const allTypes = ['тонкое', 'традиционное'];
+const allTypes = ["тонкое", "традиционное"];
 const allSizes = [26, 30, 40];
-
 
 function PizzaBlock({ imageUrl, id, name, types, sizes, price }) {
   const dispatch = useDispatch();
@@ -34,36 +33,35 @@ function PizzaBlock({ imageUrl, id, name, types, sizes, price }) {
 
   return (
     <div className="pizza-block">
-      <img
-        className="pizza-block__image"
-        src={imageUrl}
-        alt="Pizza"
-      />
+      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
       <h4 className="pizza-block__title">{name}</h4>
       <div className="pizza-block__selector">
         <ul>
           {allTypes.map((type, index) => (
-              <li
-                key={type}
-                className={classNames({
-                  'disabled': !types.includes(index),
-                  'active': activeType === type,
-                })}
-                onClick={() => setActiveType(type)}
-              >{type}</li>
-            ))
-          }
+            <li
+              key={type}
+              className={classNames({
+                disabled: !types.includes(index),
+                active: activeType === type,
+              })}
+              onClick={() => setActiveType(type)}
+            >
+              {type}
+            </li>
+          ))}
         </ul>
         <ul>
-          {allSizes.map(size => (
+          {allSizes.map((size) => (
             <li
               key={size}
               className={classNames({
-                  'disabled': !sizes.includes(size),
-                  'active': activeSize === size,
+                disabled: !sizes.includes(size),
+                active: activeSize === size,
               })}
               onClick={() => setActiveSize(size)}
-            >{size} см.</li>
+            >
+              {size} см.
+            </li>
           ))}
         </ul>
       </div>
@@ -87,7 +85,7 @@ function PizzaBlock({ imageUrl, id, name, types, sizes, price }) {
         </Button>
       </div>
     </div>
-  )
+  );
 }
 
 PizzaBlock.propTypes = {
@@ -97,5 +95,5 @@ PizzaBlock.propTypes = {
   name: PropTypes.string.isRequired,
   types: PropTypes.arrayOf(PropTypes.number).isRequired,
   sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
-}
+};
 export default PizzaBlock;

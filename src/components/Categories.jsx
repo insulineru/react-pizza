@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 function Categories({ items, activeCategory, onClickCategory }) {
   return (
     <div className="categories">
       <ul>
         <li
-          className={activeCategory === null ? 'active' : ''}
+          className={activeCategory === null ? "active" : ""}
           onClick={() => onClickCategory(null)}
         >
           Все
@@ -14,7 +14,7 @@ function Categories({ items, activeCategory, onClickCategory }) {
         {items &&
           items.map((name, index) => (
             <li
-              className={activeCategory === index ? 'active' : ''}
+              className={activeCategory === index ? "active" : ""}
               onClick={() => onClickCategory(index)}
               key={index}
             >
@@ -23,7 +23,7 @@ function Categories({ items, activeCategory, onClickCategory }) {
           ))}
       </ul>
     </div>
-  )
+  );
 }
 
 Categories.propTypes = {

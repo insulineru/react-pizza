@@ -1,13 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import Button from './Button';
-import headerLogo from '../assets/img/pizza-logo.svg';
+import Button from "./Button";
+import headerLogo from "../assets/img/pizza-logo.svg";
 
 function Header() {
-  const count = useSelector(state => state.cart.count);
-  const price = useSelector(state => state.cart.price);
+  const count = useSelector((state) => state.cart.count);
+  const price = useSelector((state) => state.cart.price);
 
   return (
     <div className="header">
@@ -62,6 +62,6 @@ function Header() {
       </div>
     </div>
   );
-};
+}
 
 export default Header;

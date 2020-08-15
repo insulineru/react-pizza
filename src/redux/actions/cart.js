@@ -1,13 +1,13 @@
 export const addToCart = (item) => ({
-  type: 'ADD_TO_CART',
+  type: "ADD_TO_CART",
   payload: item,
-})
+});
 
 export const removeFromCart = (index) => ({
-  type: 'REMOVE_FROM_CART',
+  type: "REMOVE_FROM_CART",
   payload: index,
-})
+});
 
 export const clearCart = () => ({
-  type: 'CLEAR_CART'
-})
+  type: "CLEAR_CART",
+});
