@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Button from './Button';
 import headerLogo from '../assets/img/pizza-logo.svg';
 
-function Header({ cartCount, cartPrice}) {
+function Header() {
+  const count = useSelector(state => state.cart.count);
+  const price = useSelector(state => state.cart.price);
+
   return (
     <div className="header">
       <div className="container">
@@ -21,7 +25,7 @@ function Header({ cartCount, cartPrice}) {
         <div className="header__cart">
           <Link to="/cart">
             <Button className="button button--cart">
-              <span>{cartPrice} ₽</span>
+              <span>{price} ₽</span>
               <div className="button__delimiter"></div>
               <svg
                 width="18"
@@ -52,18 +56,13 @@ function Header({ cartCount, cartPrice}) {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span>{cartCount}</span>
+              <span>{count}</span>
             </Button>
           </Link>
         </div>
       </div>
     </div>
   );
-};
-
-Header.propTypes = {
-  cartCount: PropTypes.number.isRequired,
-  cartPrice: PropTypes.number.isRequired,
 };
 
 export default Header;

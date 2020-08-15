@@ -1,11 +1,10 @@
 import React from 'react';
-import { db } from '../firebase';
 
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import { PizzaBlock, Categories, SortSelect, LoadingPizzaBlock } from '../components';
 import { setCategory, setSortBy } from '../redux/actions/filters';
+import { fetchPizzas } from '../redux/actions/pizzas';
 
 const categories = ['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 const sortByItems = [
@@ -20,22 +19,12 @@ function Home({ setCartItems }) {
   const onClickSortHandler = (sortBy) => dispatch(setSortBy(sortBy));
   const category = useSelector(state => state.filters.category);
   const sortBy = useSelector(state => state.filters.sortBy);
-  const [pizzas, setPizzas] = React.useState([]);
-  const [loading, setLoading] = React.useState(false)
+  const pizzas = useSelector(state => state.pizzas.items);
+  const isLoaded = useSelector(state => state.pizzas.isLoaded);
 
   React.useEffect(() => {
-    setLoading(true)
-    db.collection('pizzas')
-      .get()
-      .then(querySnapshot => {
-        const pizzas = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }))
-        setPizzas(pizzas)
-        setLoading(false)
-      })
-  }, []);
+    dispatch(fetchPizzas(sortBy, category))
+  }, [category, dispatch, sortBy]);
 
   return (
     <div className="content">
@@ -46,12 +35,12 @@ function Home({ setCartItems }) {
         </div>
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items">
-          {loading ?
-            [...Array(12)].map( (item, index) => {
-              return (<LoadingPizzaBlock key={ index }/>)
-            }) :
+          {isLoaded ?
             pizzas.map(item => {
               return (<PizzaBlock {...item} key={item.id} addToCart={setCartItems} />)
+            }) :
+            [...Array(12)].map( (item, index) => {
+              return (<LoadingPizzaBlock key={ index }/>)
             })
           }
         </div>
@@ -60,8 +49,5 @@ function Home({ setCartItems }) {
   )
 }
 
-Home.propTypes = {
-  setCartItems: PropTypes.func.isRequired,
-}
 
 export default Home;

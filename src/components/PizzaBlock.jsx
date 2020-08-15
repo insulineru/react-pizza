@@ -1,14 +1,17 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
 import Button from './Button';
+import { addToCart } from '../redux/actions/cart';
 
 const allTypes = ['тонкое', 'традиционное'];
 const allSizes = [26, 30, 40];
 
 
-function PizzaBlock({ imageUrl, id, name, types, sizes, price, addToCart }) {
+function PizzaBlock({ imageUrl, id, name, types, sizes, price }) {
+  const dispatch = useDispatch();
   const [activeType, setActiveType] = React.useState(allTypes[0]);
   const [activeSize, setActiveSize] = React.useState(allSizes[0]);
 
@@ -21,7 +24,7 @@ function PizzaBlock({ imageUrl, id, name, types, sizes, price, addToCart }) {
       size: activeSize,
       type: activeType,
     };
-    addToCart(obj);
+    dispatch(addToCart(obj));
   };
 
   React.useEffect(() => {
@@ -89,7 +92,7 @@ function PizzaBlock({ imageUrl, id, name, types, sizes, price, addToCart }) {
 
 PizzaBlock.propTypes = {
   imageUrl: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   types: PropTypes.arrayOf(PropTypes.number).isRequired,
